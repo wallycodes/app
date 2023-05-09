@@ -13,9 +13,18 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { createTheme } from "@mui/material/styles";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import InputLabel from "@mui/material/InputLabel";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
-const pages = ["Festivals", "My events"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const pages = ["Festivals", "Videos"];
+const pages2 = ["Festivals", "My events", "Login"];
+// const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -35,6 +44,16 @@ function ResponsiveAppBar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  // LOGIN ONCLICK
+  const [openLogin, setOpenLogin] = React.useState(false);
+
+  const handleLoginOpen = () => {
+    setOpenLogin(!openLogin);
+    handleCloseNavMenu();
+  };
+  // STATE FOR MODAL MENU BREAKPOINT
+  const [width, setWidth] = React.useState(window.innerWidth);
+  const breakpoint = 900;
 
   return (
     <AppBar
@@ -92,11 +111,20 @@ function ResponsiveAppBar() {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
+              {width > breakpoint ? (
+                pages.map((page) => (
+                  <MenuItem key={page} onClick={handleCloseNavMenu}>
+                    <Typography textAlign="center">{page}</Typography>
+                  </MenuItem>
+                ))
+              ) : (
+                <div>
+                  <MenuItem onClick={handleCloseNavMenu}>Festivals</MenuItem>
+                  <MenuItem onClick={handleCloseNavMenu}>My events</MenuItem>
+                  <MenuItem onClick={handleCloseNavMenu}>Videos</MenuItem>
+                  <MenuItem onClick={handleLoginOpen}>Login</MenuItem>
+                </div>
+              )}
             </Menu>
           </Box>
           {/* <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} /> */}
@@ -141,22 +169,80 @@ function ResponsiveAppBar() {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
+            <Tooltip>
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" /> */}
                 <Button
+                  onClick={handleLoginOpen}
                   variant="contained"
                   size="large"
                   style={{ backgroundColor: "#000", borderRadius: "50px" }}
                   sx={{
                     display: { xs: "none", md: "block" },
+                    mx: 5,
                   }}
                 >
                   Login
                 </Button>
+                <div>
+                  <Dialog
+                    open={openLogin}
+                    onClose={handleLoginOpen}
+                    disableEscapeKeyDown
+                  >
+                    <DialogTitle>Fill the form</DialogTitle>
+                    <DialogContent>
+                      <Box
+                        component="form"
+                        sx={{ display: "flex", flexWrap: "wrap" }}
+                      >
+                        <FormControl sx={{ m: 1, minWidth: 120 }}>
+                          <InputLabel htmlFor="demo-dialog-native">
+                            Age
+                          </InputLabel>
+                          <Select
+                            native
+                            input={
+                              <OutlinedInput
+                                label="Age"
+                                id="demo-dialog-native"
+                              />
+                            }
+                          >
+                            <option aria-label="None" value="" />
+                            <option value={10}>Ten</option>
+                            <option value={20}>Twenty</option>
+                            <option value={30}>Thirty</option>
+                          </Select>
+                        </FormControl>
+                        <FormControl sx={{ m: 1, minWidth: 120 }}>
+                          <InputLabel id="demo-dialog-select-label">
+                            Age
+                          </InputLabel>
+                          <Select
+                            labelId="demo-dialog-select-label"
+                            id="demo-dialog-select"
+                            input={<OutlinedInput label="Age" />}
+                          >
+                            <MenuItem value="">
+                              <em>None</em>
+                            </MenuItem>
+                            <MenuItem value={10}>Ten</MenuItem>
+                            <MenuItem value={20}>Twenty</MenuItem>
+                            <MenuItem value={30}>Thirty</MenuItem>
+                          </Select>
+                        </FormControl>
+                      </Box>
+                    </DialogContent>
+                    <DialogActions>
+                      <Button onClick={handleLoginOpen}>Cancel</Button>
+                      <Button onClick={handleLoginOpen}>Ok</Button>
+                    </DialogActions>
+                  </Dialog>
+                </div>
               </IconButton>
             </Tooltip>
-            <Menu
+            {/* <Menu
               sx={{ mt: "45px" }}
               id="menu-appbar"
               anchorEl={anchorElUser}
@@ -171,13 +257,13 @@ function ResponsiveAppBar() {
               }}
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
+            > */}
+            {/* {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
-              ))}
-            </Menu>
+              ))} */}
+            {/* </Menu> */}
           </Box>
         </Toolbar>
       </Container>
