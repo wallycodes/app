@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Link } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -22,9 +23,13 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { TextField } from "@mui/material";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Grid from "@mui/material/Grid";
+import Checkbox from "@mui/material/Checkbox";
+// import Link from "@mui/material/Link";
 
-const pages = ["Festivals", "Videos"];
-const pages2 = ["Festivals", "My events", "Login"];
+// const pages = ["Festivals", "Videos"];
+// const pages2 = ["Festivals", "My events", "Login"];
 // const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function ResponsiveAppBar() {
@@ -112,20 +117,34 @@ function ResponsiveAppBar() {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {width > breakpoint ? (
+              {/* {width > breakpoint ? (
                 pages.map((page) => (
                   <MenuItem key={page} onClick={handleCloseNavMenu}>
                     <Typography textAlign="center">{page}</Typography>
                   </MenuItem>
                 ))
-              ) : (
-                <div>
-                  <MenuItem onClick={handleCloseNavMenu}>Festivals</MenuItem>
-                  <MenuItem onClick={handleCloseNavMenu}>My events</MenuItem>
-                  <MenuItem onClick={handleCloseNavMenu}>Videos</MenuItem>
-                  <MenuItem onClick={handleLoginOpen}>Login</MenuItem>
-                </div>
-              )}
+              ) : ( */}
+              <div>
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Link
+                    style={{ textDecoration: "none", color: "#000" }}
+                    to="/Festivals"
+                  >
+                    Festivals
+                  </Link>
+                </MenuItem>
+                {/* <MenuItem onClick={handleCloseNavMenu}>My events</MenuItem> */}
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Link
+                    style={{ textDecoration: "none", color: "#000" }}
+                    to="/Videos"
+                  >
+                    Videos
+                  </Link>
+                </MenuItem>
+                <MenuItem onClick={handleLoginOpen}>Login</MenuItem>
+              </div>
+              {/* )} */}
             </Menu>
           </Box>
           {/* <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} /> */}
@@ -146,13 +165,14 @@ function ResponsiveAppBar() {
               textDecoration: "none",
             }}
           >
-            Headbangers
+            <Link to="/" style={{ textDecoration: "none", color: "#000" }}>
+              Headbangers
+            </Link>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
+            <Button onClick={handleCloseNavMenu}>
+              <Link
+                style={{ textDecoration: "none", color: "#000" }}
                 sx={{
                   ml: 4,
                   my: 2,
@@ -163,10 +183,29 @@ function ResponsiveAppBar() {
                   letterSpacing: ".01rem",
                   textDecoration: "none",
                 }}
+                to="/Festivals"
               >
-                {page}
-              </Button>
-            ))}
+                Festivals
+              </Link>
+            </Button>
+            <Button onClick={handleCloseNavMenu}>
+              <Link
+                style={{ textDecoration: "none", color: "#000" }}
+                sx={{
+                  ml: 4,
+                  my: 2,
+                  color: "#000",
+                  display: "block",
+                  fontFamily: "roboto",
+                  fontWeight: 400,
+                  letterSpacing: ".01rem",
+                  textDecoration: "none",
+                }}
+                to="/Videos"
+              >
+                Videos
+              </Link>
+            </Button>
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
@@ -185,49 +224,84 @@ function ResponsiveAppBar() {
                 >
                   Login
                 </Button>
-                <div>
-                  <Dialog
-                    open={openLogin}
-                    onClose={handleLoginOpen}
-                    disableEscapeKeyDown
-                  >
-                    <DialogTitle align="center">Login</DialogTitle>
-                    <DialogContent>
+
+                <Dialog
+                  open={openLogin}
+                  onClose={handleLoginOpen}
+                  disableEscapeKeyDown
+                >
+                  <DialogContent>
+                    <Box
+                      sx={{
+                        marginTop: 3,
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Typography component="h1" variant="h5">
+                        Login
+                      </Typography>
                       <Box
                         component="form"
-                        sx={{ display: "flex", flexWrap: "wrap" }}
+                        //   onSubmit=
+                        noValidate
+                        sx={{ mt: 1 }}
                       >
-                        <FormControl sx={{ m: 1, minWidth: 120 }}>
-                          <InputLabel htmlFor="demo-dialog-native">
-                            Email
-                          </InputLabel>
-                          <TextField></TextField>
-                        </FormControl>
-                        <FormControl sx={{ m: 1, minWidth: 120 }}>
-                          <InputLabel id="demo-dialog-select-label">
-                            Age
-                          </InputLabel>
-                          <Select
-                            labelId="demo-dialog-select-label"
-                            id="demo-dialog-select"
-                            input={<OutlinedInput label="Age" />}
-                          >
-                            <MenuItem value="">
-                              <em>None</em>
-                            </MenuItem>
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
-                          </Select>
-                        </FormControl>
+                        <TextField
+                          margin="normal"
+                          required
+                          fullWidth
+                          id="email"
+                          label="Email Address"
+                          name="email"
+                          autoComplete="email"
+                          autoFocus
+                        />
+                        <TextField
+                          margin="normal"
+                          required
+                          fullWidth
+                          name="password"
+                          label="Password"
+                          type="password"
+                          id="password"
+                          autoComplete="current-password"
+                        />
+                        <FormControlLabel
+                          control={
+                            <Checkbox value="remember" color="primary" />
+                          }
+                          label="Remember me"
+                        />
+                        <Button
+                          type="submit"
+                          fullWidth
+                          variant="contained"
+                          sx={{ mt: 3, mb: 2, backgroundColor: "#fc00ff" }}
+                        >
+                          Sign In
+                        </Button>
+                        <Grid container>
+                          <Grid item xs>
+                            <Link href="#" variant="body2">
+                              Forgot password?
+                            </Link>
+                          </Grid>
+                          <Grid item>
+                            <Link href="#" variant="body2">
+                              {"Don't have an account? Sign Up"}
+                            </Link>
+                          </Grid>
+                        </Grid>
                       </Box>
-                    </DialogContent>
-                    <DialogActions>
-                      <Button onClick={handleLoginOpen}>Cancel</Button>
-                      <Button onClick={handleLoginOpen}>Ok</Button>
-                    </DialogActions>
-                  </Dialog>
-                </div>
+                    </Box>
+                  </DialogContent>
+                  <DialogActions>
+                    <Button onClick={handleLoginOpen}>Cancel</Button>
+                    <Button onClick={handleLoginOpen}>Ok</Button>
+                  </DialogActions>
+                </Dialog>
               </IconButton>
             </Tooltip>
             {/* <Menu
