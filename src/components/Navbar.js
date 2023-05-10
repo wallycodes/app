@@ -21,6 +21,7 @@ import InputLabel from "@mui/material/InputLabel";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { TextField } from "@mui/material";
 
 const pages = ["Festivals", "Videos"];
 const pages2 = ["Festivals", "My events", "Login"];
@@ -190,7 +191,7 @@ function ResponsiveAppBar() {
                     onClose={handleLoginOpen}
                     disableEscapeKeyDown
                   >
-                    <DialogTitle>Fill the form</DialogTitle>
+                    <DialogTitle align="center">Login</DialogTitle>
                     <DialogContent>
                       <Box
                         component="form"
@@ -198,22 +199,9 @@ function ResponsiveAppBar() {
                       >
                         <FormControl sx={{ m: 1, minWidth: 120 }}>
                           <InputLabel htmlFor="demo-dialog-native">
-                            Age
+                            Email
                           </InputLabel>
-                          <Select
-                            native
-                            input={
-                              <OutlinedInput
-                                label="Age"
-                                id="demo-dialog-native"
-                              />
-                            }
-                          >
-                            <option aria-label="None" value="" />
-                            <option value={10}>Ten</option>
-                            <option value={20}>Twenty</option>
-                            <option value={30}>Thirty</option>
-                          </Select>
+                          <TextField></TextField>
                         </FormControl>
                         <FormControl sx={{ m: 1, minWidth: 120 }}>
                           <InputLabel id="demo-dialog-select-label">
