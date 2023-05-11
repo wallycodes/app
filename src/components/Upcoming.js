@@ -22,6 +22,7 @@ import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import { styled } from "@mui/material/styles";
 import { Link } from "react-router-dom";
+import dayjs from "dayjs";
 
 const Upcoming = () => {
   const [jsonResults, setJsonResults] = useState([]);
@@ -48,6 +49,7 @@ const Upcoming = () => {
         console.log(err);
       });
   }, []);
+
   return (
     <Container
       maxWidth={false}
@@ -75,26 +77,59 @@ const Upcoming = () => {
       </Typography>
       {jsonResults.map((art) => {
         return (
-          <div>
-            <Grid container spacing={2}>
-              <Grid item xs={6} md={8}>
+          <Container maxWidth="xl">
+            <Grid container spacing={5} sx={{ my: 5 }}>
+              <Grid item xs={8} md={8}>
                 <Item>
-                  <Typography>{art.name}</Typography>
+                  {art.name === null ? (
+                    <Typography
+                      align="left"
+                      sx={{ fontWeight: "800", fontSize: "20px" }}
+                    >
+                      Venue: {art.venue.name}
+                    </Typography>
+                  ) : (
+                    <Typography
+                      align="left"
+                      sx={{ fontWeight: "800", fontSize: "20px" }}
+                    >
+                      Event: {art.name}
+                    </Typography>
+                  )}
+
+                  <Typography align="left" sx={{ color: "#fc00ff" }}>
+                    {art.date}
+                  </Typography>
+                  <Typography align="left" sx={{ mb: 1 }}>
+                    {art.venue.location}
+                  </Typography>
+
                   {art.artistList.map((artistList) => (
-                    <Typography>{artistList.name}</Typography>
+                    <Typography variant="body1" align="left">
+                      {artistList.name}
+                    </Typography>
                   ))}
-                  <Typography>{art.venue.name}</Typography>
                 </Item>
               </Grid>
-              <Grid item xs={6} md={4}>
-                <Item>
-                  <Link to={art.link}>
-                    <Button>Buy Tickets</Button>
-                  </Link>
-                </Item>
+              <Grid
+                item
+                xs={4}
+                md={4}
+                alignItems="center"
+                justifyContent="center"
+                verticalAlign="center"
+              >
+                <Link target="_blank" to={art.link}>
+                  <Button
+                    size="large"
+                    sx={{ color: "#fff", backgroundColor: "#fc00ff" }}
+                  >
+                    Buy Tickets
+                  </Button>
+                </Link>
               </Grid>
             </Grid>
-          </div>
+          </Container>
         );
       })}
     </Container>

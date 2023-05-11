@@ -275,6 +275,7 @@ function ResponsiveAppBar() {
                           label="Remember me"
                         />
                         <Button
+                          onClick={handleLoginOpen}
                           type="submit"
                           fullWidth
                           variant="contained"
@@ -298,8 +299,8 @@ function ResponsiveAppBar() {
                     </Box>
                   </DialogContent>
                   <DialogActions>
-                    <Button onClick={handleLoginOpen}>Cancel</Button>
-                    <Button onClick={handleLoginOpen}>Ok</Button>
+                    {/* <Button onClick={handleLoginOpen}>Cancel</Button>
+                    <Button onClick={handleLoginOpen}>Ok</Button> */}
                   </DialogActions>
                 </Dialog>
               </IconButton>
