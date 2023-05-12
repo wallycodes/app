@@ -5,7 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
 import "./App.css";
-import Festivals from "./pages/Festivals";
+import MyEvents from "./pages/MyEvents";
 import Videos from "./pages/Videos";
 
 const router = createBrowserRouter([
@@ -14,8 +14,8 @@ const router = createBrowserRouter([
     element: <App />,
   },
   {
-    path: "Festivals",
-    element: <Festivals />,
+    path: "MyEvents",
+    element: <MyEvents />,
   },
   {
     path: "Videos",

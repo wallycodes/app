@@ -128,9 +128,9 @@ function ResponsiveAppBar() {
                 <MenuItem onClick={handleCloseNavMenu}>
                   <Link
                     style={{ textDecoration: "none", color: "#000" }}
-                    to="/Festivals"
+                    to="/MyEvents"
                   >
-                    Festivals
+                    My Events
                   </Link>
                 </MenuItem>
                 {/* <MenuItem onClick={handleCloseNavMenu}>My events</MenuItem> */}
@@ -183,9 +183,9 @@ function ResponsiveAppBar() {
                   letterSpacing: ".01rem",
                   textDecoration: "none",
                 }}
-                to="/Festivals"
+                to="/MyEvents"
               >
-                Festivals
+                My Events
               </Link>
             </Button>
             <Button onClick={handleCloseNavMenu}>
@@ -224,7 +224,7 @@ function ResponsiveAppBar() {
                 >
                   Login
                 </Button>
-
+                {/* LOGIN FORM */}
                 <Dialog
                   open={openLogin}
                   onClose={handleLoginOpen}
