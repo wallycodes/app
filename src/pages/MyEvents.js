@@ -7,6 +7,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import axios from "axios";
+import FormControl from "@mui/material/FormControl";
 import { useEffect } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -28,8 +29,12 @@ import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import { styled } from "@mui/material/styles";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 function MyEvents(props) {
+  const navigate = useNavigate();
+
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
     ...theme.typography.body2,
@@ -73,15 +78,19 @@ function MyEvents(props) {
     axios
       .post("http://localhost:8000/api/events/new", eventEdm)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
+        handleLoginOpen();
+        window.location.reload(false);
       })
       .catch((err) => {
         setErrors(err.response.data.errors);
+        console.log(err);
       });
   };
 
   // GET REQUEST TO DISPLAY EVENTS
   const [eventList, setEventList] = useState([]);
+  const [oneEvent, setOneEvent] = useState([]);
 
   useEffect(() => {
     axios
@@ -94,6 +103,33 @@ function MyEvents(props) {
         console.log(err);
       });
   }, []);
+
+  // DELETE HANDLER
+  const { id } = useParams();
+  const deleteHandler = (id) => {
+    axios
+      .delete(`http://localhost:8000/api/deleteEvents/${id}`)
+      .then((res) => {
+        const updatedEventList = eventList.filter(
+          (eventEdm) => eventEdm._id !== id
+        );
+        setEventList(updatedEventList);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  // OPEN EDIT FORM
+  const [openForm, setOpenForm] = useState(false);
+
+  const openEditForm = () => {
+    setOpenForm(!openForm);
+  };
+
+  const closeEditForm = () => {
+    setOpenForm(false);
+  };
 
   return (
     <div>
@@ -157,38 +193,81 @@ function MyEvents(props) {
                   noValidate
                   sx={{ mt: 1 }}
                 >
+                  {errors.eventName ? (
+                    <TextField
+                      error
+                      helperText="Event Name must be 3 or more characters"
+                      onChange={changeHandler}
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="name"
+                      label="event Name"
+                      name="eventName"
+                      autoFocus
+                    />
+                  ) : (
+                    <TextField
+                      onChange={changeHandler}
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="name"
+                      label="event Name"
+                      name="eventName"
+                      autoFocus
+                    />
+                  )}
+                  {errors.eventVenue ? (
+                    <TextField
+                      error
+                      helperText="Event venue must be 3 or more characters"
+                      onChange={changeHandler}
+                      margin="normal"
+                      required
+                      fullWidth
+                      name="eventVenue"
+                      label="venue"
+                      id="venue"
+                    />
+                  ) : (
+                    <TextField
+                      onChange={changeHandler}
+                      margin="normal"
+                      required
+                      fullWidth
+                      name="eventVenue"
+                      label="venue"
+                      id="venue"
+                    />
+                  )}
+
+                  {errors.eventLocation ? (
+                    <TextField
+                      error
+                      helperText="Event location must be 3 or more characters"
+                      onChange={changeHandler}
+                      margin="normal"
+                      required
+                      fullWidth
+                      name="eventLocation"
+                      label="City, State ex. (Denver,CO)"
+                      id="location"
+                    />
+                  ) : (
+                    <TextField
+                      onChange={changeHandler}
+                      margin="normal"
+                      required
+                      fullWidth
+                      name="eventLocation"
+                      label="City, State ex. (Denver,CO)"
+                      id="location"
+                    />
+                  )}
                   <TextField
                     onChange={changeHandler}
                     margin="normal"
-                    required
-                    fullWidth
-                    id="name"
-                    label="event Name"
-                    name="eventName"
-                    autoFocus
-                  />
-                  <TextField
-                    onChange={changeHandler}
-                    margin="normal"
-                    required
-                    fullWidth
-                    name="eventVenue"
-                    label="venue"
-                    id="venue"
-                  />
-                  <TextField
-                    onChange={changeHandler}
-                    margin="normal"
-                    required
-                    fullWidth
-                    name="eventLocation"
-                    label="City, State ex. (Denver,CO)"
-                    id="location"
-                  />
-                  <TextField
-                    onChange={changeHandler}
-                    margin="normal"
-                    required
                     fullWidth
                     name="eventArtist"
                     label="artist"
@@ -197,18 +276,14 @@ function MyEvents(props) {
                   <TextField
                     onChange={changeHandler}
                     margin="normal"
-                    required
                     fullWidth
                     name="eventDate"
                     label="date"
                     id="date"
                   />
-                  {/* <FormControlLabel
-                    control={<Checkbox value="remember" color="primary" />}
-                    label="Remember me"
-                  /> */}
+
                   <Button
-                    onClick={handleLoginOpen}
+                    // onClick={handleLoginOpen}
                     type="submit"
                     fullWidth
                     variant="contained"
@@ -239,6 +314,13 @@ function MyEvents(props) {
                     {eventEdm.eventName}
                   </Typography>
 
+                  <Typography
+                    align="left"
+                    sx={{ fontWeight: "500", fontSize: "18px" }}
+                  >
+                    {eventEdm.eventVenue}
+                  </Typography>
+
                   <Typography align="left" sx={{ color: "#fc00ff" }}>
                     {eventEdm.eventDate}
                   </Typography>
@@ -260,12 +342,12 @@ function MyEvents(props) {
                 justifyContent="center"
                 verticalAlign="center"
               >
-                <Link>
+                <Link to={`/events/${eventEdm._id}/edit`}>
                   <Typography variant="subtitle" align="center" sx={{ mx: 2 }}>
                     Edit
                   </Typography>
                 </Link>
-                <Link>
+                <Link onClick={() => deleteHandler(eventEdm._id)}>
                   <Typography variant="subtitle" align="center">
                     Delete
                   </Typography>

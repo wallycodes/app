@@ -44,12 +44,12 @@ function MyEvents(props) {
         setEventList(response.data.events);
       })
       .catch((err) => {
-        console.log(err);
+        setErrors(err.response.data.errors);
       });
   }, []);
 
   return (
-     
+
         {/* JSON INFO */}
         {
             eventList.map((event,idx) => (          

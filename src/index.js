@@ -7,6 +7,9 @@ import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
 import "./App.css";
 import MyEvents from "./pages/MyEvents";
 import Videos from "./pages/Videos";
+import EditPage from "./pages/EditPage";
+import { useParams } from "react-router-dom";
+// import eventEdm from "./pages/MyEvents";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +23,10 @@ const router = createBrowserRouter([
   {
     path: "Videos",
     element: <Videos />,
+  },
+  {
+    path: `/events/:id/edit`,
+    element: <EditPage />,
   },
 ]);
 
