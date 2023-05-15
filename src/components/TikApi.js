@@ -1,59 +1,126 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
-import Navbar from "../components/Navbar";
-import Title from "../components/Title";
-import { Typography } from "@mui/material";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import axios from "axios";
-import { useEffect } from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
-import { createTheme } from "@mui/material/styles";
-import TextField from "@mui/material/TextField";
-import { Hidden } from "@mui/material";
-import { useState } from "react";
-import Paper from "@mui/material/Paper";
-import Grid from "@mui/material/Grid";
-import { styled } from "@mui/material/styles";
-import FormControlLabel from "@mui/material/FormControlLabel";
+import { Typography } from "@mui/material";
+import Box from "@mui/material/Box";
+import Card from "@mui/joy/Card";
+import CardCover from "@mui/joy/CardCover";
+import CardContent from "@mui/joy/CardContent";
 
-function MyEvents(props) {
-
-
-  const [errors, setErrors] = useState({});
- 
-  // GET REQUEST TO DISPLAY EVENTS
-  const { eventList, setEventList } = props;
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:8000/api/allEvents")
-      .then((response) => {
-        setEventList(response.data.events);
-      })
-      .catch((err) => {
-        setErrors(err.response.data.errors);
-      });
-  }, []);
-
+function TikApi() {
   return (
+    <div>
+      <Container
+        align="center"
+        maxWidth={false}
+        fullWidth
+        disableGutters
+        sx={{ height: "100vh", backgroundColor: "#fff", mb: 10 }}
+      >
+        <Typography
+          fullWidth
+          id="fullWidth"
+          sx={{
+            py: 10,
+            backgroundColor: "#fff",
+            fontSize: {
+              xs: "1.5rem",
+              sm: "1.5rem",
+              md: "2rem",
+              lg: "2rem",
+              xl: "2rem",
+            },
+          }}
+        >
+          Events Videos
+        </Typography>
 
-       <div>
-        
-       </div>
-)
+        <Box sx={{ pb: 15, mx: 4 }}>
+          <iframe
+            className="youtube-video"
+            src="https://www.youtube.com/embed/AsN5fdngBCk"
+            title="LSDREAM - LOST LANDS 2022 (FULL SET)"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
 
+          <iframe
+            className="youtube-video"
+            src="https://www.youtube.com/embed/Kf4vuurAZeI"
+            title="Excision B2B Sullivan King Live @ Lost Lands 2022 - Full Set"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
 
-export default Display
+          <iframe
+            className="youtube-video"
+            src="https://www.youtube.com/embed/FN0PD6YQVks"
+            title="Excision 2 Hour Set Live @ Lost Lands 2022 - Full Set"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+          <iframe
+            className="youtube-video"
+            src="https://www.youtube.com/embed/IWreyRnkCJk"
+            title="SUBTRONICS LIVE @ ULTRA MUSIC FESTIVAL MIAMI 2023"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+          <iframe
+            className="youtube-video"
+            src="https://www.youtube.com/embed/-tLRvxTJctI"
+            title="SPACE LACES PRESENTS VAULTAGE // Live from Mission Ballroom"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+          <iframe
+            className="youtube-video"
+            src="https://www.youtube.com/embed/dFfC92iBxNw"
+            title="Four Tet x Fred again.. x Skrillex - Coachella 2023 - FULL SET **OFFICIAL**"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+          <iframe
+            className="youtube-video"
+            src="https://www.youtube.com/embed/OvNkaFHSAXY"
+            title="Arctic Monkeys - When The Sun Goes Down / Brianstorm"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+          <iframe
+            className="youtube-video"
+            src="https://www.youtube.com/embed/QYatCsZALNM"
+            title="Eliminate Live @ Lost Lands 2022 - Full Set"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+          <iframe
+            className="youtube-video"
+            src="https://www.youtube.com/embed/vTJDRgBHDvA"
+            title="Knife Party Live @ Lost Lands 2022 - Full Set"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+          <iframe
+            className="youtube-video"
+            src="https://www.youtube.com/embed/u1PTUHb2anY"
+            title="VIRTUAL RIOT @ LOST LANDS 2022"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+        </Box>
+      </Container>
+    </div>
+  );
+}
+
+export default TikApi;
