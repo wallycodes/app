@@ -31,7 +31,7 @@ function TikApi() {
             },
           }}
         >
-          Events Videos
+          Event Videos
         </Typography>
 
         <Box sx={{ pb: 15, mx: 4 }}>
